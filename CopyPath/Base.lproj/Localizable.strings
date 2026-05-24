@@ -1,0 +1,8 @@
+/* Window title */
+"app.windowTitle" = "CopyPath";
+
+/* Instruction body */
+"app.instructions" = "Adds a 'Copy Path' item to the Finder right-click menu.\n\nHow to enable:\n1. Click the button below to open Login Items & Extensions\n2. Click 'Finder' under the Extensions section\n3. Turn on the 'CopyPath' switch\n\nAfter enabling, right-click a file or folder in Finder\nto see 'Copy Path' in the menu.";
+
+/* Button to open System Settings */
+"app.openSettings" = "Open System Settings";

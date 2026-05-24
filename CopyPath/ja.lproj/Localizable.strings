@@ -1,0 +1,8 @@
+/* Window title */
+"app.windowTitle" = "CopyPath";
+
+/* Instruction body */
+"app.instructions" = "Finderの右クリックメニューに「パスをコピー」を追加します。\n\n【有効化の手順】\n1. 下のボタンで「ログイン項目と機能拡張」を開く\n2. 「機能拡張」セクションの「Finder」をクリック\n3. 「CopyPath」のスイッチをオンにする\n\n有効化後、Finderでファイルやフォルダを右クリックすると\n「パスをコピー」が表示されます。";
+
+/* Button to open System Settings */
+"app.openSettings" = "システム設定を開く";
