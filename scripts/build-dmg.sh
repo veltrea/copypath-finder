@@ -16,39 +16,57 @@ echo "→ Staging DMG contents..."
 rm -rf "$STAGING"
 mkdir -p "$STAGING"
 cp -R build/Build/Products/Release/CopyPath.app "$STAGING/"
-cp scripts/install.command "$STAGING/install.command"
-chmod +x "$STAGING/install.command"
+ln -s /Applications "$STAGING/Applications"
 
 cat > "$STAGING/README.txt" <<'EOF'
-CopyPath - "Copy Path" item for Finder right-click menu
+CopyPath - "Copy Path" item in the Finder right-click Services submenu
 
-How to install:
-  Double-click "install.command".
-  (If macOS warns about an unsigned developer, allow it in System
-  Settings > Privacy & Security, then double-click again.)
+Install:
+  1. Drag "CopyPath" onto the "Applications" folder shortcut.
+  2. Open CopyPath from Applications once.
+     If macOS warns about an unidentified developer, open
+     System Settings > Privacy & Security and click "Open Anyway",
+     then launch CopyPath again.
+     You can close the window after it appears - CopyPath keeps
+     running in the background so the Service stays available.
 
-After it finishes, right-click any file or folder in Finder
-to see "Copy Path" at the top level of the menu.
+Usage:
+  Right-click any file in Finder -> Services -> Copy Path.
+  The POSIX path is copied to your clipboard.
 
-How to uninstall:
-  rm -rf ~/Applications/CopyPath.app
-  pluginkit -r ~/Applications/CopyPath.app/Contents/PlugIns/CopyPathExtension.appex 2>/dev/null || true
+  To put it on a keyboard shortcut:
+    System Settings > Keyboard > Keyboard Shortcuts > Services
+    > Files and Folders > Copy Path
+
+Uninstall:
+  Quit CopyPath from the Dock, then:
+    rm -rf /Applications/CopyPath.app
 
 ----------------------------------------------------------------
 
-CopyPath - Finder の右クリックメニューに「パスをコピー」を追加
+CopyPath - Finder 右クリック「サービス」サブメニューに「パスをコピー」を追加
 
 インストール手順:
-  「install.command」をダブルクリック。
-  （macOS が「開発元が未確認」と警告した場合は、システム設定 >
-  プライバシーとセキュリティ で許可してから再度ダブルクリック）
+  1. 「CopyPath」を「Applications」フォルダのショートカットに
+     ドラッグ&ドロップします。
+  2. Applications から CopyPath を 1 回開きます。
+     macOS が「開発元が未確認」と警告した場合は、システム設定 >
+     プライバシーとセキュリティ で「このまま開く」をクリックして
+     から、もう一度 CopyPath を起動してください。
+     ウィンドウは閉じて構いません。CopyPath はバックグラウンドで
+     動き続けるのでサービスは引き続き使えます。
 
-完了後、Finder でファイルやフォルダを右クリックすると、メニュー
-上部に「パスをコピー」が表示されます。
+使い方:
+  Finder でファイルを右クリック →「サービス」→「パスをコピー」。
+  POSIX パスがクリップボードに入ります。
+
+  キーボードショートカットを割り当てる場合:
+    システム設定 > キーボード > キーボードショートカット >
+    サービス > ファイルとフォルダ > パスをコピー
 
 アンインストール:
-  rm -rf ~/Applications/CopyPath.app
-  pluginkit -r ~/Applications/CopyPath.app/Contents/PlugIns/CopyPathExtension.appex 2>/dev/null || true
+  Dock から CopyPath を終了した後:
+    rm -rf /Applications/CopyPath.app
 EOF
 
 echo "→ Creating $DMG_NAME..."

@@ -1,0 +1,3 @@
+/* Service menu items declared in Info.plist NSServices. Key is the
+   default English text, value is the localized text. */
+"Copy Path" = "Copy Path";

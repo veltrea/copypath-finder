@@ -2,7 +2,17 @@
 "app.windowTitle" = "CopyPath";
 
 /* Instruction body */
-"app.instructions" = "Adds a 'Copy Path' item to the Finder right-click menu.\n\nHow to enable:\n1. Click the button below to open Login Items & Extensions\n2. Click 'Finder' under the Extensions section\n3. Turn on the 'CopyPath' switch\n\nAfter enabling, right-click a file or folder in Finder\nto see 'Copy Path' in the menu.";
+"app.instructions" = "CopyPath adds a 'Copy Path' item to the Finder right-click menu under Services.\n\nTo use it, right-click any file or folder in Finder, hover over 'Services', then click 'Copy Path'. The file's path is copied to your clipboard.\n\nYou can close this window — CopyPath stays running in the background so the Service works without launching the app each time.";
 
-/* Button to open System Settings */
-"app.openSettings" = "Open System Settings";
+/* Optional helper button — opens the Services preferences pane so the user can assign a keyboard shortcut */
+"app.openSettings" = "Open Keyboard Shortcuts Settings";
+
+/* Menu items (%@ is replaced by the app name) */
+"menu.about" = "About %@";
+"menu.hide" = "Hide %@";
+"menu.hideOthers" = "Hide Others";
+"menu.showAll" = "Show All";
+"menu.quit" = "Quit %@";
+"menu.window" = "Window";
+"menu.minimize" = "Minimize";
+"menu.close" = "Close";

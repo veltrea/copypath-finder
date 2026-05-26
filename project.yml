@@ -27,22 +27,5 @@ targets:
         INFOPLIST_FILE: CopyPath/Info.plist
         CODE_SIGN_ENTITLEMENTS: CopyPath/CopyPath.entitlements
         LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
-        ENABLE_APP_SANDBOX: YES
+        ENABLE_APP_SANDBOX: NO
         GENERATE_INFOPLIST_FILE: NO
-    dependencies:
-      - target: CopyPathExtension
-
-  CopyPathExtension:
-    type: app-extension
-    platform: macOS
-    sources:
-      - path: CopyPathExtension
-    settings:
-      base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.copypath.app.extension
-        INFOPLIST_FILE: CopyPathExtension/Info.plist
-        CODE_SIGN_ENTITLEMENTS: CopyPathExtension/CopyPathExtension.entitlements
-        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../../../../Frameworks"
-        ENABLE_APP_SANDBOX: YES
-        GENERATE_INFOPLIST_FILE: NO
-        SKIP_INSTALL: YES

@@ -35,5 +35,26 @@
     <string></string>
     <key>LSUIElement</key>
     <false/>
+    <key>NSServices</key>
+    <array>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Copy Path</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>copyPath</string>
+            <key>NSPortName</key>
+            <string>CopyPath</string>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.file-url</string>
+                <string>NSFilenamesPboardType</string>
+            </array>
+            <key>NSRequiredContext</key>
+            <dict/>
+        </dict>
+    </array>
 </dict>
 </plist>
