@@ -27,27 +27,47 @@ The Services API is the supported path on modern macOS. The trade-off is that th
 
 ## Install
 
+1. Download `CopyPath-1.0.0.dmg` from the [latest release](https://github.com/veltrea/copypath-finder/releases/latest).
+2. Open the DMG and drag **CopyPath** onto the **Applications** folder shortcut.
+3. Open `CopyPath` from `/Applications` once. macOS will warn that the developer is unidentified (the build is ad-hoc signed, not notarized) — open **System Settings → Privacy & Security**, click **Open Anyway**, then launch again.
+4. The setup window appears. You can close it — CopyPath stays running in the background so the Service stays available.
+
+After that, **right-click any file in Finder → サービス / Services → パスをコピー / Copy Path**.
+
+To bind a keyboard shortcut: **System Settings → Keyboard → Keyboard Shortcuts → Services → Files and Folders → Copy Path**. The window's button opens this pane directly.
+
+## Build from source
+
+Requires Xcode 16+ and [xcodegen](https://github.com/yonsm/XcodeGen) (`brew install xcodegen`).
+
 ```bash
 ./install.sh
 ```
 
-Builds the app, installs it to `/Applications/CopyPath.app`, registers the bundle with LaunchServices, restarts `pbs` and Finder so the Services menu picks up the new entry (Finder restart alone is not enough — `pbs` caches the menu), and launches the app once so its bootstrap completes.
+Builds, installs to `/Applications/CopyPath.app`, registers the bundle with LaunchServices, restarts `pbs` and Finder so the Services menu picks up the new entry (Finder restart alone is not enough — `pbs` caches the menu), and launches the app once so its bootstrap completes.
 
-Alternatively, drag `CopyPath.app` from the DMG to `/Applications` and launch it once.
+For iterative development:
 
-## Usage
+```bash
+./scripts/dev-reinstall.sh --build
+```
 
-1. Right-click a file or folder in Finder
-2. Hover over **サービス** / **Services**
-3. Click **パスをコピー** / **Copy Path**
+Force-kills any running CopyPath process (including stale ones from previous builds), scrubs leftover state (including any legacy FinderSync extension registration), rebuilds, reinstalls to `/Applications`, restarts `pbs` and Finder, and relaunches the app. Prints the built / installed binary timestamps and SHA so you can confirm the running window-title build stamp matches the artifact you just built.
 
-To put it on a keyboard shortcut: **System Settings → Keyboard → Keyboard Shortcuts → Services → Files and Folders → Copy Path**. The window's button opens this pane directly.
+To package a DMG for release:
+
+```bash
+./scripts/build-dmg.sh 1.0.0
+```
+
+Outputs `build/CopyPath-1.0.0.dmg`.
 
 ## Requirements
 
-- macOS 13.0+
-- Xcode 16+
-- [xcodegen](https://github.com/yonsm/XcodeGen) (`brew install xcodegen`)
+| | |
+|---|---|
+| End user | macOS 13.0+ |
+| Building from source | macOS 13.0+ · Xcode 16+ · [xcodegen](https://github.com/yonsm/XcodeGen) |
 
 ## How it works
 
@@ -57,14 +77,6 @@ To put it on a keyboard shortcut: **System Settings → Keyboard → Keyboard Sh
 - **First-launch bootstrap.** Runs `lsregister -f -R -trusted <bundle>` to register the app, `NSUpdateDynamicServices()` to refresh the registry, then `killall pbs && killall Finder` so the Services menu is rebuilt with the freshly registered (and localized) entry. Guarded by a `UserDefaults` flag so it only runs once.
 - **Stays running.** `applicationShouldTerminateAfterLastWindowClosed` returns `false`, so closing the setup window doesn't quit the app. The Service stays available without macOS having to relaunch the app each time.
 - **No popup on Service invocation.** The setup window is shown via a deferred (~400 ms) `DispatchWorkItem`. If `copyPath(_:userData:error:)` runs first — which is exactly what happens when macOS cold-starts the app to handle a Service call — it cancels the pending work item, so the window never appears.
-
-## Development
-
-```bash
-./scripts/dev-reinstall.sh --build
-```
-
-Force-kills any running CopyPath process (including stale ones from previous builds), scrubs leftover state (including any legacy FinderSync extension registration), rebuilds, reinstalls to `/Applications`, restarts `pbs` and Finder, and relaunches the app. Prints the built / installed binary timestamps and SHA so you can confirm the running window-title build stamp matches the artifact you just built.
 
 ## License
 
